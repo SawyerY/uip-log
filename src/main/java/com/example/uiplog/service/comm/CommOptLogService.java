@@ -5,7 +5,6 @@ import com.alibaba.fastjson2.JSONArray;
 
 import com.example.uiplog.entity.log.ScBusinessOptApiCache;
 import com.example.uiplog.entity.log.ScOptLog;
-import com.example.uiplog.entity.log.ScOptLogReq;
 import com.example.uiplog.entity.user.ScUser;
 import com.example.uiplog.mapper.ScUserMapper;
 import com.example.uiplog.mapper.log.ScOptLogMapper;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +27,6 @@ public class CommOptLogService {
     private ScOptLogMapper scOptLogMapper;
     @Autowired
     private CommCacheService cacheService;
-
-    //以下为业务mapper注入
     @Autowired
     private ScUserMapper scUserMapper;
 
@@ -61,15 +57,6 @@ public class CommOptLogService {
                 return logDesc;
         }
     }
-
-    public Integer[] getIdArray(String[] idStr) {
-        Integer[] num = new Integer[idStr.length];
-        for (int i = 0; i < idStr.length; i++) {
-            num[i] = Integer.parseInt(idStr[i]);
-        }
-        return num;
-    }
-
 
     /**
      * @param o
@@ -103,11 +90,6 @@ public class CommOptLogService {
             e.printStackTrace();
             log.error("操作日志入库失败： "+o.getOptApi());
         }
-    }
-
-
-    public List<ScOptLog> getList(ScOptLogReq scOptLogReq, Integer loginUserId, String client) {
-        return scOptLogMapper.selectList(scOptLogReq, loginUserId, client);
     }
 
 

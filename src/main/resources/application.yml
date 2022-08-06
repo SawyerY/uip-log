@@ -58,13 +58,6 @@ primaryDB:
       #打开PSCache，并指定每个连接上PSCache的大小。PSCache对支持游标的数据库性能提升巨大，比如说oracle
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-jwt:
-  api-token: ZXlKcmFXUWlPaUl3SWl3aWRIbHdJam9pU2xkVUlpd2lZV3huSWpvaVNGTXlOVFlpZlEuZXlKcFlYUWlPakUxTXpVMk1UUTJNREVzSW5OMVlpSTZJbXh2WjJsdUlpd2lhWE56SWpvaVYwVkVVeUlzSW5CaGJHY2lPaUpoWlhNdE1qVTJMV05pWXlJc0luQnJaWGxwWkNJNklqRWlMQ0pxZEdraU9pSjFjMlZ5TVRJek5EWmhZMk52ZFc1MExYTmxjblpwWTJWc2IyZHBiaUlzSW1GMVpDSTZJbUZqWTI5MWJuUXRjMlZ5ZG1salpTSXNJbkJrWVhSaElqb2laREF5WmpRMk16UmxOV0ZrTjJReVltTTBPVGd6WmpJeU5ERmxNak5pWWpsbFpEQmhZMkl3WkRGa1kyWm1aakJoWTJSa1pqVXdaR0ppWldVelpqZGlOMk16TTJSa1l6RmhaR0ZtWTJWaVl6VTJOVFJoWVRReE5qbGpaalpqTjJWaU1UUTBaV1JtTVRSa01XTmlPVFF4TnpKaE9HVXpOekZsTW1RME9URmhPR0lpZlEuTG4wdUMtaG10ejN3U01hakdxUGxocXBQanBnYVpscS1rRVBMVkt1NjdLRQ==
-  secret-key: 4OFGE6luXcTtnjLMcQn8JanoSl4i1yfb
-  secret-pkey: 01234567890123456789012345678901&0123456789012345,12345678901234567890123456789012&1234567890123456
-  active: true
-  filter: "account/loginCheck.*$,account/getVerify,account/checkIndex,account/loginCasCheck/.*$,account/wxLogin/.*$,account/ssoLogin,account/scmLogin/.*$,account/getLoginSrc,account/app-ticket,account/loginFromApp/.*$,websocket.*,index.html,doc.html,static.*,images.*,fileAtt.*,img.*,imageRe.*,^.*/export/.*$,^.*/upload/.*$,sysConfig/.*$,favicon.ico,testMq/send,ssoLogin.*,sso.html.*,screen/screenData.*$,rpc,screenConfig/.*$,account/accessTicket,account/loginFromScm/.*$,account/getSysInfo,screen/reload,userForeign/register,comm/getWeather,screen/screenInfo.*$"
-
 
 
 

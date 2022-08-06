@@ -27,11 +27,11 @@ import java.util.Map;
 @Component
 @Aspect
 public class LoggerInterceptor {
+
     private Logger log = LogManager.getLogger();
+
     @Autowired
     private HttpServletRequest request;
-/*    @Autowired
-    private HttpServletResponse response;*/
     @Autowired
     private CommOptLogService commOptLogService;
 
@@ -74,11 +74,6 @@ public class LoggerInterceptor {
         String apiName = method.getName()+"@"+clazz.getName();
         Integer userId = Integer.valueOf(this.request.getAttribute("loginUserId").toString());
         String client = this.request.getAttribute("loginClient").toString();
-        // TODO: 2020/5/8 调试阶段 注释
-/*        if(!commOptControlService.sysApiCheck(apiName,userId,client)){
-            this.response.setStatus(403);
-            return obj;
-        }*/
 
         try {
             obj = point.proceed();
@@ -147,15 +142,6 @@ public class LoggerInterceptor {
                                     userId,
                                     client.split("_")[1]
                             ));
-                    /*this.log.info("类名称:" + clazz.getName());
-                    this.log.info("日志位置:" + logPosition);
-                    this.log.info("方法名称:" + method.getName());
-                    this.log.info("方法描述:" + methodDesc);
-                    this.log.info("方法参数:" + strArgs);
-                    this.log.info("参数内容:" + argsvalue.replaceAll("'", "''"));
-                    this.log.info("方法耗时:" + String.valueOf(offTime));
-                    this.log.info("日志日期:" + sdf.format(new Date()));
-                    this.log.info("---------------------------------------------------");*/
                 }
 
                 if (response.getCode() != 600) {
@@ -166,16 +152,6 @@ public class LoggerInterceptor {
                                     userId,
                                     client.split("_")[1]
                             ));
-                    /*this.log.error("类名称:" + clazz.getName());
-                    this.log.error("日志位置:" + logPosition);
-                    this.log.error("方法名称:" + method.getName());
-                    this.log.error("方法描述:" + methodDesc);
-                    this.log.error("方法参数:" + strArgs);
-                    this.log.error("参数内容:" + argsvalue.replaceAll("'", "''"));
-                    this.log.error("方法耗时:" + String.valueOf(offTime));
-                    this.log.error("日志日期:" + sdf.format(new Date()));
-                    this.log.error("错误信息:" + errMsg);
-                    this.log.error("---------------------------------------------------");*/
                 }
             }
         }
@@ -200,16 +176,6 @@ public class LoggerInterceptor {
                                 Integer.valueOf(this.request.getAttribute("loginUserId").toString()),
                                 this.request.getAttribute("loginClient").toString().split("_")[1]
                         ));
-                /*this.log.error(logPosition);
-                this.log.error("类名称:" + clazz.getName());
-                this.log.error("方法名称:" + method.getName());
-                this.log.error("方法描述:" + methodDesc);
-                this.log.error("方法参数:" + strArgs);
-                this.log.error("参数内容:" + argsvalue);
-                this.log.error("日志日期:" + sdf.format(new Date()));
-                this.log.error("错误信息:" + e.getLocalizedMessage());
-                this.log.error("错误信息:" + e.toString());
-                this.log.error("---------------------------------------------------");*/
             }
         }
 

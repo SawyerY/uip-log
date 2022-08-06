@@ -13,10 +13,10 @@
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
     </typeAliases>
-<!--    <typeHandlers>-->
-<!--        <typeHandler handler="com.weds.framework.datasource.mybatis.JsonTypeHandler" jdbcType="OTHER"-->
-<!--                     javaType="com.weds.framework.core.common.model.JsonMapEntity"/>-->
-<!--    </typeHandlers>-->
+    <typeHandlers>
+        <typeHandler handler="com.weds.framework.datasource.mybatis.JsonTypeHandler" jdbcType="OTHER"
+                     javaType="com.weds.framework.core.common.model.JsonMapEntity"/>
+    </typeHandlers>
     <plugins>
         <!--mybatis分页插件-->
         <plugin interceptor="com.github.pagehelper.PageHelper">

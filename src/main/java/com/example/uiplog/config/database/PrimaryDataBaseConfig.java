@@ -37,7 +37,7 @@ public class PrimaryDataBaseConfig extends AbstractProcessEngineAutoConfiguratio
     /**
      * dao层的包路径
      */
-    static final String PACKAGE = "com.weds.uipface.mapper";
+    static final String PACKAGE = "com.example.uiplog.mapper";
 
     /**
      * mapper文件的相对路径
