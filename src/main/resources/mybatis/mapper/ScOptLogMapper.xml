@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.uiplog.mapper.log.ScOptLogMapper">
+  <resultMap id="BaseResultMap" type="com.example.uiplog.entity.log.ScOptLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="opt_api" jdbcType="VARCHAR" property="optApi" />
+    <result column="opt_no" jdbcType="VARCHAR" property="optNo" />
+    <result column="opt_name" jdbcType="VARCHAR" property="optName" />
+    <result column="opt_type_id" jdbcType="INTEGER" property="optTypeId" />
+    <result column="opt_result_type" jdbcType="INTEGER" property="optResultType" />
+    <result column="request_method" jdbcType="VARCHAR" property="requestMethod" />
+    <result column="params_url" jdbcType="VARCHAR" property="paramsUrl" />
+    <result column="params_body" jdbcType="VARCHAR" property="paramsBody" />
+    <result column="log_desc" jdbcType="VARCHAR" property="logDesc" />
+    <result column="ct_date" jdbcType="TIMESTAMP" property="ctDate" />
+    <result column="ct_user_id" jdbcType="INTEGER" property="ctUserId" />
+    <result column="ct_rm" jdbcType="VARCHAR" property="ctRm" />
+    <result column="ct_cal" jdbcType="VARCHAR" property="ctCal" />
+    <result column="server_module" jdbcType="VARCHAR" property="serverModule" />
+    <result column="opt_result_type_name" jdbcType="VARCHAR" property="optResultTypeName" />
+    <result column="ct_user_name" jdbcType="VARCHAR" property="ctUserName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, opt_api, opt_no, opt_name, opt_type_id, opt_result_type, request_method, params_url,
+    params_body, log_desc, ct_date, ct_user_id, server_module
+  </sql>
+  <select id="selectList" resultMap="BaseResultMap">
+    select opt_no, opt_name, opt_type_id,opt_result_type,
+    case opt_result_type when 1 then '成功' else '失败' end opt_result_type_name,
+    log_desc, a.ct_date, a.ct_user_id,
+    b.user_name as ct_user_name
+    from sc_opt_log a
+    left join sc_user b on a.ct_user_id = b.user_id
+    <where>
+      <if test="req.beginTime != null and req.beginTime !=''">
+        and  <![CDATA[ a.ct_date > to_timestamp(#{req.beginTime},'yyyy-MM-dd hh24:mi:ss') ]]>
+      </if>
+      <if test="req.endTime != null and req.endTime != ''">
+        and  <![CDATA[ a.ct_date < to_timestamp(#{req.endTime},'yyyy-MM-dd hh24:mi:ss') ]]>
+      </if>
+      <if test="req.optNo != null and req.optNo != ''">
+        and a.opt_no = #{req.optNo}
+      </if>
+      <if test="client != null and client !=''">
+        and a.server_module = #{client}
+      </if>
+    </where>
+    order by ct_date desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sc_opt_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.uiplog.entity.log.ScOptLog">
+    insert into sc_opt_log (opt_api, opt_no,
+      opt_name, opt_type_id, opt_result_type,
+      request_method, params_url, params_body,
+      log_desc, ct_date, ct_user_id,
+      ct_rm, ct_cal,server_module)
+    values (#{optApi,jdbcType=VARCHAR}, #{optNo,jdbcType=VARCHAR},
+        #{optName,jdbcType=VARCHAR}, #{optTypeId,jdbcType=INTEGER}, #{optResultType,jdbcType=INTEGER},
+        #{requestMethod,jdbcType=VARCHAR}, #{paramsUrl,jdbcType=VARCHAR}, #{paramsBody,jdbcType=VARCHAR},
+        #{logDesc,jdbcType=VARCHAR}, now(), #{ctUserId,jdbcType=INTEGER},
+        #{ctRm,jdbcType=VARCHAR}, #{ctCal,jdbcType=VARCHAR}, #{serverModule,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.uiplog.entity.log.ScOptLog">
+    insert into sc_opt_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="optApi != null">
+        opt_api,
+      </if>
+      <if test="optNo != null">
+        opt_no,
+      </if>
+      <if test="optName != null">
+        opt_name,
+      </if>
+      <if test="optTypeId != null">
+        opt_type_id,
+      </if>
+      <if test="optResultType != null">
+        opt_result_type,
+      </if>
+      <if test="requestMethod != null">
+        request_method,
+      </if>
+      <if test="paramsUrl != null">
+        params_url,
+      </if>
+      <if test="paramsBody != null">
+        params_body,
+      </if>
+      <if test="logDesc != null">
+        log_desc,
+      </if>
+      <if test="ctDate != null">
+        ct_date,
+      </if>
+      <if test="ctUserId != null">
+        ct_user_id,
+      </if>
+      <if test="serverModule != null">
+          server_module,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="optApi != null">
+        #{optApi,jdbcType=VARCHAR},
+      </if>
+      <if test="optNo != null">
+        #{optNo,jdbcType=VARCHAR},
+      </if>
+      <if test="optName != null">
+        #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optTypeId != null">
+        #{optTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="optResultType != null">
+        #{optResultType,jdbcType=INTEGER},
+      </if>
+      <if test="requestMethod != null">
+        #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsUrl != null">
+        #{paramsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsBody != null">
+        #{paramsBody,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null">
+        #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ctDate != null">
+        #{ctDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctUserId != null">
+        #{ctUserId,jdbcType=INTEGER},
+      </if>
+      <if test="serverModule != null">
+        #{serverModule,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.uiplog.entity.log.ScOptLog">
+    update sc_opt_log
+    <set>
+      <if test="optApi != null">
+        opt_api = #{optApi,jdbcType=VARCHAR},
+      </if>
+      <if test="optNo != null">
+        opt_no = #{optNo,jdbcType=VARCHAR},
+      </if>
+      <if test="optName != null">
+        opt_name = #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optTypeId != null">
+        opt_type_id = #{optTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="optResultType != null">
+        opt_result_type = #{optResultType,jdbcType=INTEGER},
+      </if>
+      <if test="requestMethod != null">
+        request_method = #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsUrl != null">
+        params_url = #{paramsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="paramsBody != null">
+        params_body = #{paramsBody,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null">
+        log_desc = #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="ctDate != null">
+        ct_date = #{ctDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctUserId != null">
+        ct_user_id = #{ctUserId,jdbcType=INTEGER},
+      </if>
+      <if test="serverModule != null">
+        server_module =  #{serverModule,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.uiplog.entity.log.ScOptLog">
+    update sc_opt_log
+    set opt_api = #{optApi,jdbcType=VARCHAR},
+      opt_no = #{optNo,jdbcType=VARCHAR},
+      opt_name = #{optName,jdbcType=VARCHAR},
+      opt_type_id = #{optTypeId,jdbcType=INTEGER},
+      opt_result_type = #{optResultType,jdbcType=INTEGER},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      params_url = #{paramsUrl,jdbcType=VARCHAR},
+      params_body = #{paramsBody,jdbcType=VARCHAR},
+      log_desc = #{logDesc,jdbcType=VARCHAR},
+      ct_date = #{ctDate,jdbcType=TIMESTAMP},
+      ct_user_id = #{ctUserId,jdbcType=INTEGER},
+      server_module =  #{serverModule,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

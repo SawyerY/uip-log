@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.uiplog.mapper.log.ScBusinessOptMapper">
+
+  <select id="selectByOptApi" parameterType="java.lang.String" resultType="com.example.uiplog.entity.log.ScBusinessOptApiCache">
+    select a.opt_api, a.opt_no, b.opt_name,
+     b.log_desc_sql, b.opt_type_id
+    from sc_business_opt b
+    left join sc_business_opt_api a on a.opt_no = b.opt_no
+    where a.opt_api = #{optApi}
+    limit 1
+  </select>
+
+</mapper>

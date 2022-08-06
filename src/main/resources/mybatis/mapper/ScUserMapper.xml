@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.uiplog.mapper.ScUserMapper">
+    <resultMap id="BaseResultMap" type="com.example.uiplog.entity.user.ScUser">
+        <id column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_type" jdbcType="INTEGER" property="userType" />
+        <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+        <result column="dept_no" jdbcType="VARCHAR" property="deptNo" />
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+        <result column="user_duty" jdbcType="VARCHAR" property="userDuty" />
+        <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+        <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+        <result column="user_identity" jdbcType="VARCHAR" property="userIdentity" />
+        <result column="user_sex" jdbcType="INTEGER" property="userSex" />
+        <result column="user_finger" jdbcType="VARCHAR" property="userFinger" />
+        <result column="user_card" jdbcType="INTEGER" property="userCard" />
+        <result column="user_photo" jdbcType="INTEGER" property="userPhoto" />
+        <result column="photo_src" jdbcType="VARCHAR" property="photoSrc" />
+        <result column="user_face" jdbcType="INTEGER" property="userFace" />
+        <result column="institute_id" jdbcType="INTEGER" property="instituteId" />
+        <result column="institute_name" jdbcType="VARCHAR" property="instituteName" />
+        <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+        <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+        <result column="major_id" jdbcType="INTEGER" property="majorId" />
+        <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="user_workday" jdbcType="TIMESTAMP" property="userWorkday" />
+        <result column="limit_begin" jdbcType="TIMESTAMP" property="limitBegin" />
+        <result column="limit_end" jdbcType="TIMESTAMP" property="limitEnd" />
+        <result column="user_state" jdbcType="INTEGER" property="userState" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="show_order" jdbcType="INTEGER" property="showOrder" />
+        <result column="ct_date" jdbcType="TIMESTAMP" property="ctDate" />
+        <result column="ct_user_id" jdbcType="INTEGER" property="ctUserId" />
+        <result column="lt_date" jdbcType="TIMESTAMP" property="ltDate" />
+        <result column="lt_user_id" jdbcType="INTEGER" property="ltUserId" />
+        <result column="id_type" jdbcType="INTEGER" property="idType" />
+        <result column="foreign_state" jdbcType="INTEGER" property="foreignState" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id, user_no, user_name, user_type, dept_id, dept_no, dept_name, user_duty, phone_no,
+    user_identity, user_sex, user_finger, user_card, user_photo, user_face,
+    person_info, institute_id, institute_name, grade_id, grade_name, major_id, major_name,
+    email, external_info, user_workday, limit_begin, limit_end, user_state, remark, show_order
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+            user_id, user_no, user_name, user_type, dept_id, dept_no, dept_name, user_duty, phone_no,
+            user_identity, user_sex, user_finger, user_card, user_photo, user_face,
+            institute_id, institute_name, grade_id, grade_name, major_id, major_name,
+            email, external_info, user_workday, limit_begin, limit_end, user_state, remark, show_order,user_password
+        from sc_user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

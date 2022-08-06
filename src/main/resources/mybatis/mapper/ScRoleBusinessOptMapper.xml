@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.uiplog.mapper.role.ScRoleBusinessOptMapper">
+
+  <select id="getScRoleBusinessOptsByUserId" resultType="com.example.uiplog.entity.log.ScBusinessOpt">
+    SELECT DISTINCT b.opt_no,b.opt_name,b.menu_business_id,b.config_status
+    from sc_business_opt b
+    left join sc_role_business_opt a on a.opt_no = b.opt_no
+    where b.use_status_id = 1
+    <if test="client != null">
+      and EXISTS(SELECT 1 from sc_menu_business c where c.menu_business_id::TEXT = any(string_to_array(b.menu_business_id,','))  and c.client = #{client})
+    </if>
+    and (a.role_no in(select role_no from sc_role_user u where u.user_id = #{userId})
+      or EXISTS(select 1 from sc_role_user s where s.user_id = #{userId} and s.role_no='S01') )
+  </select>
+
+
+</mapper>
